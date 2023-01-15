@@ -1,0 +1,8 @@
+version: '3.8'
+services:
+  evalexpr-sonar:
+    image: sonarqube:9.8.0-community
+    environment:
+      - sonar.forceAuthentication=false
+    ports:
+      - 127.0.0.1:9000:9000
