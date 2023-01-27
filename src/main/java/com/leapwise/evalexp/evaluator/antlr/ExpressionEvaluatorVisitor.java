@@ -1,12 +1,12 @@
-package com.leapwise.evalexp.expressions;
+package com.leapwise.evalexp.evaluator.antlr;
 
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.PathNotFoundException;
+import com.leapwise.evalexp.evaluator.antlr.grammar.EvalExpBaseVisitor;
+import com.leapwise.evalexp.evaluator.antlr.grammar.EvalExpErrorListener;
+import com.leapwise.evalexp.evaluator.antlr.grammar.EvalExpLexer;
+import com.leapwise.evalexp.evaluator.antlr.grammar.EvalExpParser;
 import com.leapwise.evalexp.exceptions.OperationNotSupportedException;
-import com.leapwise.evalexp.expressions.grammar.EvalExpBaseVisitor;
-import com.leapwise.evalexp.expressions.grammar.EvalExpErrorListener;
-import com.leapwise.evalexp.expressions.grammar.EvalExpLexer;
-import com.leapwise.evalexp.expressions.grammar.EvalExpParser;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.slf4j.Logger;

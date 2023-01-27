@@ -11,6 +11,7 @@ public class TestConstants {
               {
                 "firstName": "JOHN",
                 "lastName": "DOE",
+                "married": true,
                 "address":
                 {
                   "city": "Chicago",
@@ -19,7 +20,8 @@ public class TestConstants {
                   "houseNumber": 2345
                 },
                 "salary": 99,
-                "type": "BUSINESS"
+                "type": "BUSINESS",
+                "sharePrice": 15.54
               }
             }""";
 }

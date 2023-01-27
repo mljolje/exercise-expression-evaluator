@@ -1,13 +1,22 @@
 package com.leapwise.evalexp.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.io.Serial;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "expression")
-public class Expression implements Serializable {
+public class ExpressionEntity implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -18,19 +27,17 @@ public class Expression implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @NotNull
+    @NotBlank
     @Column(name = "expression_name")
     private String name;
 
-    @Column(name = "expression_value")
+    @Size(max = 10000)
+    @Column(name = "expression_value", length = 10000)
     private String value;
 
     public Long getId() {
         return this.id;
-    }
-
-    public Expression id(Long id) {
-        this.setId(id);
-        return this;
     }
 
     public void setId(Long id) {
@@ -41,26 +48,26 @@ public class Expression implements Serializable {
         return this.name;
     }
 
-    public Expression name(String name) {
-        this.setName(name);
-        return this;
-    }
-
     public void setName(String name) {
         this.name = name;
+    }
+
+    public ExpressionEntity name(String name) {
+        this.setName(name);
+        return this;
     }
 
     public String getValue() {
         return this.value;
     }
 
-    public Expression value(String value) {
-        this.setValue(value);
-        return this;
-    }
-
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public ExpressionEntity value(String value) {
+        this.setValue(value);
+        return this;
     }
 
     @Override
@@ -68,10 +75,10 @@ public class Expression implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Expression)) {
+        if (!(o instanceof ExpressionEntity)) {
             return false;
         }
-        return id != null && id.equals(((Expression) o).id);
+        return id != null && id.equals(((ExpressionEntity) o).id);
     }
 
     @Override

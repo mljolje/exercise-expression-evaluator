@@ -2,8 +2,8 @@ package com.leapwise.evalexp.service.impl;
 
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.PathNotFoundException;
-import com.leapwise.evalexp.exceptions.OperationNotSupportedException;
-import com.leapwise.evalexp.expressions.ExpressionEvaluatorVisitor;
+import com.leapwise.evalexp.config.Constants;
+import com.leapwise.evalexp.exceptions.EvaluationErrorException;
 import com.leapwise.evalexp.service.EvaluateExpressionService;
 import org.springframework.stereotype.Service;
 
@@ -15,29 +15,33 @@ import java.io.StreamTokenizer;
 import java.io.StringReader;
 import java.util.Map;
 
-@Service
-public class EvaluateExpressionServiceImpl implements EvaluateExpressionService {
-
+@Service(Constants.JAVASCRIPT)
+public class JsEvaluateExpressionServiceImpl implements EvaluateExpressionService {
     public static final String NULL_WITH_SPACE = "null ";
     public static final String JAVA_SCRIPT_ENGINE = "nashorn";
     private final ScriptEngine javaScriptEngine;
 
-    public EvaluateExpressionServiceImpl() {
+    public JsEvaluateExpressionServiceImpl() {
         this.javaScriptEngine = new ScriptEngineManager().getEngineByName(JAVA_SCRIPT_ENGINE);
     }
 
     @Override
-    public Boolean evaluate(final String expression, final String jsonObject) throws OperationNotSupportedException {
-        return new ExpressionEvaluatorVisitor(expression, jsonObject).evaluate();
+    public boolean evaluate(final String expression, final String jsonObject) throws EvaluationErrorException {
+        try {
+            return (Boolean) javaScriptEngine.eval(transformToJsString(expression, jsonObject));
+        } catch (ScriptException | IOException e) {
+            throw new EvaluationErrorException(e.getMessage(), e);
+        }
     }
 
     @Override
-    public Boolean evaluateUsingJSEngine(final String expression, final String jsonObject) throws IOException, ScriptException {
-        return (Boolean) javaScriptEngine.eval(transformToJsString(expression, jsonObject));
+    public boolean evaluateInLooseMode(final String expression, final String jsonObject) throws EvaluationErrorException {
+        return evaluate(expression, jsonObject);
     }
 
     /**
      * Supports only tokens as example: AND, OR, &&, ||, ==, !=, <, >
+     *
      * @param expression
      * @param jsonObject
      * @return

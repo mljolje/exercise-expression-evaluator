@@ -1,4 +1,4 @@
-package com.leapwise.evalexp.expressions.grammar;
+package com.leapwise.evalexp.evaluator.antlr.grammar;
 
 import com.leapwise.evalexp.exceptions.ProcessingTokenException;
 import org.antlr.v4.runtime.BaseErrorListener;

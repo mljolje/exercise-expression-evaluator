@@ -7,8 +7,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class BadRequestAlertAdviceTest {
 
-    final String BAD_REQUEST_MESSAGE = "Bad request message";
-    final String BAD_REQUEST_DETAILS = "Bad request details";
+    final static String BAD_REQUEST_MESSAGE = "Bad request message";
+    final static String BAD_REQUEST_DETAILS = "Bad request details";
+
     @Test
     void badRequestAlertHandler() {
         assertThat(new BadRequestAlertAdvice()
